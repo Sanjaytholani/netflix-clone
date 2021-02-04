@@ -1,22 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 import HomeScreen from "./components/HomeScreen";
-import Intro from "./components/Intro";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import LoginScreen from "./components/LoginScreen";
+import { auth } from "./firebaseConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
 function App() {
-  const [loading, setLoading] = useState(true);
-
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   useEffect(() => {
-    setTimeout(async () => {
-      await setLoading(false);
-    }, 5500);
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(
+          login({
+            uid: userAuth.uid,
+            email: userAuth.email,
+          })
+        );
+      } else {
+        dispatch(logout());
+      }
+    });
+    return unsubscribe;
   }, []);
-  return loading ? (
-    <Intro />
-  ) : (
-    <div className="app">
-      <HomeScreen />
-    </div>
+  return (
+    <Router>
+      <Switch>
+        {!user ? (
+          <LoginScreen />
+        ) : (
+          <Route exact path="/">
+            <div className="app">
+              <HomeScreen />
+            </div>
+          </Route>
+        )}
+      </Switch>
+    </Router>
   );
 }
 
