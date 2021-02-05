@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import HomeScreen from "./components/HomeScreen";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import LoginScreen from "./components/LoginScreen";
 import { auth } from "./firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
@@ -45,9 +50,13 @@ function App() {
                 <ProfileScreen />
               </Route>
               <Route exact path="/">
-                <div className="app">
-                  <HomeScreen />
-                </div>
+                {user.plan ? (
+                  <div className="app">
+                    <HomeScreen />
+                  </div>
+                ) : (
+                  <Redirect to="/profile" />
+                )}
               </Route>
             </Switch>
           )}

@@ -1,0 +1,22 @@
+.planscreen__plan {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  opacity: 0.8;
+}
+.planscreen__plan:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+.planscreen__plan > button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #e50914;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-weight: 400;
+}
+.current {
+  background-color: gray !important;
+}

@@ -1,11 +1,16 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { auth } from "../firebaseConfig";
 import "./SignUpScreen.css";
-function SignUpScreen() {
+function SignUpScreen({ email }) {
   const [signin, setSignin] = useState(true);
   const [show, setShow] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  useEffect(() => {
+    if (email) {
+      emailRef.current.value = email;
+    }
+  }, []);
   const register = (e) => {
     e.preventDefault();
     auth
