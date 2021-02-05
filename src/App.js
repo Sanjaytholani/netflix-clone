@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import HomeScreen from "./components/HomeScreen";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -6,10 +6,17 @@ import LoginScreen from "./components/LoginScreen";
 import { auth } from "./firebaseConfig";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/userSlice";
+import ProfileScreen from "./components/ProfileScreen";
+import Intro from "./components/Intro";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
+    setTimeout(async () => {
+      await setLoading(false);
+    }, 5500);
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       if (userAuth) {
         dispatch(
@@ -23,20 +30,29 @@ function App() {
       }
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
   return (
     <Router>
-      <Switch>
-        {!user ? (
-          <LoginScreen />
-        ) : (
-          <Route exact path="/">
-            <div className="app">
-              <HomeScreen />
-            </div>
-          </Route>
-        )}
-      </Switch>
+      {loading ? (
+        <Intro />
+      ) : (
+        <>
+          {!user ? (
+            <LoginScreen />
+          ) : (
+            <Switch>
+              <Route exact path="/profile">
+                <ProfileScreen />
+              </Route>
+              <Route exact path="/">
+                <div className="app">
+                  <HomeScreen />
+                </div>
+              </Route>
+            </Switch>
+          )}
+        </>
+      )}
     </Router>
   );
 }

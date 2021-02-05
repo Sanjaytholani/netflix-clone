@@ -26,3 +26,9 @@
 .nav__black {
   background-color: #111;
 }
+
+@media only screen and (max-width: 600px) {
+  .nav {
+    max-width: 100vw;
+  }
+}

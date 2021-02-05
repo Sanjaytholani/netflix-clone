@@ -3,3 +3,9 @@
   height: 100%;
   background-color: #000;
 }
+
+@media only screen and (max-width: 600px) {
+  .homescreen {
+    max-width: 100vw;
+  }
+}

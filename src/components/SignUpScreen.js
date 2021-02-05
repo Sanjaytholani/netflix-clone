@@ -3,6 +3,7 @@ import { auth } from "../firebaseConfig";
 import "./SignUpScreen.css";
 function SignUpScreen() {
   const [signin, setSignin] = useState(true);
+  const [show, setShow] = useState(false);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const register = (e) => {
@@ -13,7 +14,6 @@ function SignUpScreen() {
         passwordRef.current.value
       )
       .then((user) => {
-        console.log(user);
         emailRef.current.value = "";
         passwordRef.current.value = "";
       })
@@ -27,18 +27,32 @@ function SignUpScreen() {
         passwordRef.current.value
       )
       .then((user) => {
-        console.log(user);
         emailRef.current.value = "";
         passwordRef.current.value = "";
       })
       .catch((err) => alert(err));
+  };
+  const showPassword = (e) => {
+    e.preventDefault();
+    setShow(!show);
+    passwordRef.current.type === "password"
+      ? (passwordRef.current.type = "text")
+      : (passwordRef.current.type = "password");
   };
   return (
     <div className="signupscreen">
       <form>
         <h1>Sign {signin ? "In" : "Up"}</h1>
         <input ref={emailRef} placeholder="Email" type="email" />
-        <input ref={passwordRef} placeholder="Password" type="password" />
+        <div className="signupscreen__password">
+          <input
+            className="password"
+            ref={passwordRef}
+            placeholder="Password"
+            type="password"
+          />
+          <button onClick={showPassword}>{show ? "Hide" : "Show"}</button>
+        </div>
         {signin ? (
           <button onClick={signIn} type="submit">
             Sign In
