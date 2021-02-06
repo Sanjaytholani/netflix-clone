@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, updateEmail } from "../features/userSlice";
 import { auth } from "../firebaseConfig";
@@ -8,8 +8,14 @@ import "./ProfileScreen.css";
 function ProfileScreen() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const [sub, setSub] = useState("");
   const [email, setEmail] = useState(user.email);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      await setLoading(false);
+    }, 1000);
+  }, []);
   const handelSubmit = (e) => {
     e.preventDefault();
     const currentUser = auth.currentUser;
@@ -46,7 +52,18 @@ function ProfileScreen() {
               </button>
             </form>
             <div className="profilescreen__plans">
-              <h3>Plans{user.plan && <p>(Current plan: {user.plan})</p>}</h3>
+              <h3>
+                Plans
+                {loading ? (
+                  ""
+                ) : user.plan ? (
+                  <p>(Current plan: {user.plan})</p>
+                ) : (
+                  <p style={{ color: "#e50914" }}>
+                    Get a Subscription To continue
+                  </p>
+                )}
+              </h3>
               <PlanScreen />
               <button
                 onClick={() => auth.signOut()}

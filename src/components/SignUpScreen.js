@@ -10,7 +10,7 @@ function SignUpScreen({ email }) {
     if (email) {
       emailRef.current.value = email;
     }
-  }, []);
+  }, [email]);
   const register = (e) => {
     e.preventDefault();
     auth

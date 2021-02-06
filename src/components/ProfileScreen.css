@@ -43,7 +43,7 @@
 .profilescreen__details > form > input:hover {
   background-color: lightgray;
 }
-.profilescreen__plans {
+/* .profilescreen__plans {
   margin-top: 20px;
 }
 .profilescreen__plan {
@@ -78,7 +78,7 @@
 .profilescreen__plans > h3 {
   border-bottom: 1px solid #282c2d;
   padding-bottom: 10px;
-}
+} */
 
 .profilescreen__signout {
   padding: 10px 20px;
@@ -87,6 +87,7 @@
   width: 100%;
   border: 0;
   color: #fff;
+  outline: 0;
   background-color: #e50914;
   cursor: pointer;
 }
@@ -95,27 +96,16 @@
   .profilescreen {
     width: 100%;
   }
+  .profilescreen__body > h1 {
+    font-size: 30px;
+  }
   .profilescreen__body {
     padding-top: 20%;
     margin: 0;
-    margin-left: 50px;
-  }
-  .profilescreen__plan {
-    width: 80vw;
+    margin-left: 10px;
   }
 
   .profilescreen__info > img {
     display: none;
-  }
-  .profilescreen__details {
-    margin-left: 0;
-  }
-}
-@media (max-width: 350px) {
-  .profilescreen__body > h1 {
-    font-size: 30px;
-  }
-  .profilescreen__button {
-    padding: 2px 10px;
   }
 }

@@ -3,6 +3,7 @@
   justify-content: space-between;
   padding: 20px;
   opacity: 0.8;
+  width: 100%;
 }
 .planscreen__plan:hover {
   opacity: 1;
@@ -14,9 +15,23 @@
   background-color: #e50914;
   color: #fff;
   border: 0;
+  outline: 0;
   cursor: pointer;
   font-weight: 400;
 }
 .current {
   background-color: gray !important;
+}
+@media only screen and (max-width: 768px) {
+  .planscreen__plan > button {
+    padding: 2px 10px;
+  }
+}
+@media (max-width: 350px) {
+  .planscreen__plan > button {
+    padding: 2px 8px;
+  }
+  .current {
+    padding: 2px 8px !important;
+  }
 }

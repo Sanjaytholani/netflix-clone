@@ -3,12 +3,19 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser, updatePlan } from "../features/userSlice";
 import db from "../firebaseConfig";
+import loadingIcon from "./loadingIcon.gif";
 import "./PlanScreen.css";
 function PlanScreen() {
   const [products, setProducts] = useState([]);
   const user = useSelector(selectUser);
   const [subscription, setSubscription] = useState(null);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(async () => {
+      await setLoading(false);
+    }, 1000);
+  }, []);
   useEffect(() => {
     db.collection("customers")
       .doc(user.uid)
@@ -74,37 +81,43 @@ function PlanScreen() {
     });
   };
   return (
-    <div className="planscreen">
-      <br />
-      {subscription && (
-        <p>
-          Renewal Date:{" "}
-          {new Date(
-            subscription?.current_period_end * 1000
-          ).toLocaleDateString()}
-        </p>
-      )}
+    <>
+      {loading ? (
+        <img src={loadingIcon} alt="Icon" />
+      ) : (
+        <div className="planscreen">
+          <br />
+          {subscription && (
+            <p>
+              Renewal Date:{" "}
+              {new Date(
+                subscription?.current_period_end * 1000
+              ).toLocaleDateString()}
+            </p>
+          )}
 
-      {Object.entries(products).map(([productId, productData]) => {
-        const currentPackage = productData.name
-          ?.toLowerCase()
-          .includes(subscription?.role.toLowerCase());
-        return (
-          <div className="planscreen__plan">
-            <div className="planscreen__info">
-              <h5>{productData.name}</h5>
-              <h6>{productData.description}</h6>
-            </div>
-            <button
-              className={currentPackage ? "current" : ""}
-              onClick={() => loadCheckout(productData.prices.priceId)}
-            >
-              {!currentPackage ? "Subscribe" : "Current Subscription"}
-            </button>
-          </div>
-        );
-      })}
-    </div>
+          {Object.entries(products).map(([productId, productData]) => {
+            const currentPackage = productData.name
+              ?.toLowerCase()
+              .includes(subscription?.role.toLowerCase());
+            return (
+              <div className="planscreen__plan">
+                <div className="planscreen__info">
+                  <h5>{productData.name}</h5>
+                  <h6>{productData.description}</h6>
+                </div>
+                <button
+                  className={currentPackage ? "current" : ""}
+                  onClick={() => loadCheckout(productData.prices.priceId)}
+                >
+                  {!currentPackage ? "Subscribe" : "Current Subscription"}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 }
 
