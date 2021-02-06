@@ -82,10 +82,10 @@ function PlanScreen() {
     });
   };
   const reToast = () =>
-    toast.error("Redirecting", {
+    toast.error("Redirecting....", {
       position: "top-right",
-      autoClose: 2500,
-      hideProgressBar: false,
+      autoClose: 3500,
+      hideProgressBar: true,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
@@ -117,15 +117,20 @@ function PlanScreen() {
                   <h5>{productData.name}</h5>
                   <h6>{productData.description}</h6>
                 </div>
-                <button
-                  className={currentPackage ? "current" : ""}
-                  onClick={() => {
-                    reToast();
-                    loadCheckout(productData.prices.priceId);
-                  }}
-                >
-                  {!currentPackage ? "Subscribe" : "Current Subscription"}
-                </button>
+                <>
+                  {currentPackage ? (
+                    <button className="current">Current Subscription</button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        reToast();
+                        loadCheckout(productData.prices.priceId);
+                      }}
+                    >
+                      {!currentPackage ? "Subscribe" : "Current Subscription"}
+                    </button>
+                  )}
+                </>
               </div>
             );
           })}

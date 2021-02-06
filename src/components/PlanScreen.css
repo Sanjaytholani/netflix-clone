@@ -7,7 +7,6 @@
 }
 .planscreen__plan:hover {
   opacity: 1;
-  cursor: pointer;
 }
 .planscreen__plan > button {
   padding: 10px 20px;
@@ -21,6 +20,7 @@
 }
 .current {
   background-color: gray !important;
+  cursor: context-menu !important;
 }
 @media only screen and (max-width: 768px) {
   .planscreen__plan > button {
