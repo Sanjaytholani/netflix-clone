@@ -1,10 +1,8 @@
 import React from "react";
 import "./Intro.css";
-import Sound from "./Sound";
 function Intro() {
   return (
     <div className="container some-iclass">
-      <Sound />
       <netflixintro letter="N">
         <div className="helper-1">
           <div className="effect-brush">

@@ -1,6 +1,7 @@
 import { loadStripe } from "@stripe/stripe-js";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { selectUser, updatePlan } from "../features/userSlice";
 import db from "../firebaseConfig";
 import loadingIcon from "./loadingIcon.gif";
@@ -80,6 +81,16 @@ function PlanScreen() {
       }
     });
   };
+  const reToast = () =>
+    toast.error("Redirecting", {
+      position: "top-right",
+      autoClose: 2500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   return (
     <>
       {loading ? (
@@ -108,7 +119,10 @@ function PlanScreen() {
                 </div>
                 <button
                   className={currentPackage ? "current" : ""}
-                  onClick={() => loadCheckout(productData.prices.priceId)}
+                  onClick={() => {
+                    reToast();
+                    loadCheckout(productData.prices.priceId);
+                  }}
                 >
                   {!currentPackage ? "Subscribe" : "Current Subscription"}
                 </button>

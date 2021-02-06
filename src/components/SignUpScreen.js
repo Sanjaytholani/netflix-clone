@@ -56,7 +56,9 @@ function SignUpScreen({ email }) {
             placeholder="Password"
             type="password"
           />
-          <button onClick={showPassword}>{show ? "Hide" : "Show"}</button>
+          <button type="button" onClick={showPassword}>
+            {show ? "Hide" : "Show"}
+          </button>
         </div>
         {signin ? (
           <button onClick={signIn} type="submit">

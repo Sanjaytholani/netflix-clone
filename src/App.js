@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/userSlice";
 import ProfileScreen from "./components/ProfileScreen";
 import Intro from "./components/Intro";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);

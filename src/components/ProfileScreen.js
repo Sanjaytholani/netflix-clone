@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
 import { selectUser, updateEmail } from "../features/userSlice";
 import { auth } from "../firebaseConfig";
 import Nav from "./Nav";
@@ -28,6 +29,7 @@ function ProfileScreen() {
   };
   return (
     <div className="profilescreen">
+      <ToastContainer />
       <Nav />
       <div className="profilescreen__body">
         <h1>Edit Profile</h1>
