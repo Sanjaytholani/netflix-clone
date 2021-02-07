@@ -94,7 +94,9 @@ function PlanScreen() {
   return (
     <>
       {loading ? (
-        <img src={loadingIcon} alt="Icon" />
+        <div className="loading">
+          <img src={loadingIcon} alt="Icon" />
+        </div>
       ) : (
         <div className="planscreen">
           <br />
